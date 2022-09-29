@@ -3,6 +3,7 @@ import { Card } from './components/Card';
 import { AppContainer } from './styles';
 import GlobalStyles from './shared/theme';
 import { AddNewItem } from './components/AddNewItem';
+import { useAppState } from './state/AppStateContext';
 
 export const theme = {
   colors: {
@@ -13,12 +14,16 @@ export const theme = {
 };
 
 function App() {
+  const { lists } = useAppState();
+
   return (
     <>
       <GlobalStyles />
       <ThemeProvider theme={theme}>
         <AppContainer>
-          <Card title="card"></Card>
+          {lists.map((list) => (
+            <Card key={list.id} id={list.id} title={list.cardTitle}></Card>
+          ))}
           <AddNewItem
             buttonTitle="+ Add new card"
             newCard={true}

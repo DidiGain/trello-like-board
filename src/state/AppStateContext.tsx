@@ -2,12 +2,12 @@ import { createContext, FC, ReactNode, useContext } from 'react';
 
 export type Task = {
   id: string;
-  text: string;
+  title: string;
 };
 
 export type List = {
   id: string;
-  text: string;
+  cardTitle: string;
   tasks: Task[];
 };
 
@@ -19,26 +19,28 @@ const appData: AppState = {
   lists: [
     {
       id: '0',
-      text: 'To Do',
-      tasks: [{ id: 'c0', text: 'Continue the trello app' }],
+      cardTitle: 'To Do',
+      tasks: [
+        { id: 'c00', title: 'Continue the trello app' },
+        { id: 'c01', title: 'Review the function qs' },
+      ],
     },
     {
       id: '1',
-      text: 'In Progress',
-      tasks: [{ id: 'c1', text: 'Follow the Next.js course' }],
+      cardTitle: 'In Progress',
+      tasks: [{ id: 'c10', title: 'Follow the Next.js course' }],
     },
     {
       id: '2',
-      text: 'Done',
-      tasks: [{ id: 'c2', text: 'Read the current book for 20min' }],
+      cardTitle: 'Done',
+      tasks: [{ id: 'c20', title: 'Read the current book for 20min' }],
     },
   ],
 };
 
 type AppStateContextProps = {
-  children?: ReactNode;
   lists: List[];
-  getTaskByListId(id: string): Task[];
+  getTasksByListId(id: string): Task[];
 };
 
 type AppContextProps = {
@@ -52,12 +54,12 @@ const AppStateContext = createContext<AppStateContextProps>(
 export const AppStateProvider: FC<AppContextProps> = ({ children }) => {
   const { lists } = appData;
 
-  const getTaskByListId = (id: string) => {
+  const getTasksByListId = (id: string) => {
     return lists.find((list) => list.id === id)?.tasks || [];
   };
 
   return (
-    <AppStateContext.Provider value={{ lists, getTaskByListId }}>
+    <AppStateContext.Provider value={{ lists, getTasksByListId }}>
       {children}
     </AppStateContext.Provider>
   );

@@ -1,6 +1,7 @@
 import { RowContainer } from '../styles';
 
 type RowProps = {
+  id: string;
   title: string;
 };
 

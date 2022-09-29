@@ -1,17 +1,24 @@
+import { useAppState } from '../state/AppStateContext';
 import { CardContainer, CardTitle } from '../styles';
 import { AddNewItem } from './AddNewItem';
 import { Row } from './Row';
 
 type CardProps = {
-  id?: string;
+  id: string;
   title: string;
 };
 
-export const Card = ({ title }: CardProps) => {
+export const Card = ({ id, title }: CardProps) => {
+  const { getTasksByListId } = useAppState();
+
+  const tasks = getTasksByListId(id);
+
   return (
     <CardContainer>
       <CardTitle>{title}</CardTitle>
-      <Row title="make a resume"></Row>
+      {tasks.map((task) => (
+        <Row key={task.id} id={task.id} title={task.title}></Row>
+      ))}
       <AddNewItem
         buttonTitle="+ Add new task"
         newCard={false}
