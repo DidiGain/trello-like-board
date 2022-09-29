@@ -12,7 +12,11 @@ export const Card = ({ title }: CardProps) => {
     <CardContainer>
       <CardTitle>{title}</CardTitle>
       <Row title="make a resume"></Row>
-      <AddNewItem buttonTitle="+ Add new task" newCard={false} />
+      <AddNewItem
+        buttonTitle="+ Add new task"
+        newCard={false}
+        onAdd={(text) => console.log('card')}
+      />
     </CardContainer>
   );
 };

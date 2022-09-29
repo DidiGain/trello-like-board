@@ -19,7 +19,11 @@ function App() {
       <ThemeProvider theme={theme}>
         <AppContainer>
           <Card title="card"></Card>
-          <AddNewItem buttonTitle="+ Add new card" newCard={true} />
+          <AddNewItem
+            buttonTitle="+ Add new card"
+            newCard={true}
+            onAdd={(text) => console.log('hello')}
+          />
         </AppContainer>
       </ThemeProvider>
     </>
