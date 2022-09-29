@@ -53,3 +53,31 @@ export const AddItemButton = styled.button<AddItemButtonProps>`
       p.newCard ? p.theme.colors.cardContainer : '#eee'};
   }
 `;
+
+export const NewItemFormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 250px;
+  width: 100%;
+`;
+
+export const NewItemButton = styled.div`
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  box-shadow: none;
+  text-align: center;
+  background-color: #61c87b;
+  color: #fff;
+  cursor: pointer;
+`;
+
+export const NewItemInput = styled.input`
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  box-shadow: #091e4240 0px 1px 0px 0px;
+`;
