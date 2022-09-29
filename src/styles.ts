@@ -47,9 +47,9 @@ export const AddItemButton = styled.button<AddItemButtonProps>`
   border-radius: 4px;
   text-align: left;
   background-color: #ffffff3d;
-  color: ${(p) => (p.newCard ? '#000' : '#fff')};
-  cursor: pointer;
+  color: ${(p) => (p.newCard ? '#000c' : p.theme.colors.addItem)};
   &:hover {
-    background-color: #ffffff52;
+    background-color: ${(p) =>
+      p.newCard ? p.theme.colors.cardContainer : '#eee'};
   }
 `;
