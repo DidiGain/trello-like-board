@@ -1,4 +1,6 @@
 import React from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -9,9 +11,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <AppStateProvider>
-      <App />
-    </AppStateProvider>
+    <DndProvider backend={HTML5Backend}>
+      <AppStateProvider>
+        <App />
+      </AppStateProvider>
+    </DndProvider>
   </React.StrictMode>
 );
 
