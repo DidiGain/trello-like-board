@@ -1,8 +1,8 @@
-export function removeItemFromIndex<TItem>(index: number, array: TItem[]) {
+export function getItemFromIndex<TItem>(index: number, array: TItem[]) {
   return [...array.slice(0, index), ...array.slice(index + 1)];
 }
 
-export function insertItemAtIndex<TItem>(
+export function insertItemToIndex<TItem>(
   index: number,
   item: TItem,
   array: TItem[]
@@ -12,5 +12,5 @@ export function insertItemAtIndex<TItem>(
 
 export function moveItem<TItem>(from: number, to: number, array: TItem[]) {
   const item = array[from];
-  return insertItemAtIndex(to, item, removeItemFromIndex(from, array));
+  return insertItemToIndex(to, item, getItemFromIndex(from, array));
 }
