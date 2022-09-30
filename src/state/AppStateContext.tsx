@@ -1,8 +1,17 @@
-import { createContext, FC, ReactNode, useContext } from 'react';
+import {
+  createContext,
+  Dispatch,
+  FC,
+  ReactNode,
+  useContext,
+  useReducer,
+} from 'react';
+import { Action } from './actions';
+import { appStateReducer } from './appStateReducer';
 
 export type Task = {
   id: string;
-  title: string;
+  taskTitle: string;
 };
 
 export type List = {
@@ -15,25 +24,26 @@ export type AppState = {
   lists: List[];
 };
 
+// const appData: AppState = { lists: [] };
 const appData: AppState = {
   lists: [
     {
       id: '0',
       cardTitle: 'To Do',
       tasks: [
-        { id: 'c00', title: 'Continue the trello app' },
-        { id: 'c01', title: 'Review the function qs' },
+        { id: 'c00', taskTitle: 'Continue the trello app' },
+        { id: 'c01', taskTitle: 'Review the function qs' },
       ],
     },
     {
       id: '1',
       cardTitle: 'In Progress',
-      tasks: [{ id: 'c10', title: 'Follow the Next.js course' }],
+      tasks: [{ id: 'c10', taskTitle: 'Follow the Next.js course' }],
     },
     {
       id: '2',
       cardTitle: 'Done',
-      tasks: [{ id: 'c20', title: 'Read the current book for 20min' }],
+      tasks: [{ id: 'c20', taskTitle: 'Read the current book for 20min' }],
     },
   ],
 };
@@ -41,6 +51,7 @@ const appData: AppState = {
 type AppStateContextProps = {
   lists: List[];
   getTasksByListId(id: string): Task[];
+  dispatch: Dispatch<Action>;
 };
 
 type AppContextProps = {
@@ -52,14 +63,15 @@ const AppStateContext = createContext<AppStateContextProps>(
 );
 
 export const AppStateProvider: FC<AppContextProps> = ({ children }) => {
-  const { lists } = appData;
+  const [state, dispatch] = useReducer(appStateReducer, appData);
+  const { lists } = state;
 
   const getTasksByListId = (id: string) => {
-    return lists.find((list) => list.id === id)?.tasks || [];
+    return lists.find((list: List) => list.id === id)?.tasks || [];
   };
 
   return (
-    <AppStateContext.Provider value={{ lists, getTasksByListId }}>
+    <AppStateContext.Provider value={{ lists, getTasksByListId, dispatch }}>
       {children}
     </AppStateContext.Provider>
   );
