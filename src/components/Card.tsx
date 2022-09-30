@@ -1,3 +1,4 @@
+import { addTask } from '../state/actions';
 import { useAppState } from '../state/AppStateContext';
 import { CardContainer, CardTitle } from '../styles';
 import { AddNewItem } from './AddNewItem';
@@ -9,7 +10,7 @@ type CardProps = {
 };
 
 export const Card = ({ id, title }: CardProps) => {
-  const { getTasksByListId } = useAppState();
+  const { getTasksByListId, dispatch } = useAppState();
 
   const tasks = getTasksByListId(id);
 
@@ -17,12 +18,12 @@ export const Card = ({ id, title }: CardProps) => {
     <CardContainer>
       <CardTitle>{title}</CardTitle>
       {tasks.map((task) => (
-        <Row key={task.id} id={task.id} title={task.title}></Row>
+        <Row key={task.id} id={task.id} title={task.taskTitle}></Row>
       ))}
       <AddNewItem
         buttonTitle="+ Add new task"
         newCard={false}
-        onAdd={(text) => console.log('card')}
+        onAdd={(text) => dispatch(addTask(text, id))}
       />
     </CardContainer>
   );

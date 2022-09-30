@@ -4,6 +4,7 @@ import { AppContainer } from './styles';
 import GlobalStyles from './shared/theme';
 import { AddNewItem } from './components/AddNewItem';
 import { useAppState } from './state/AppStateContext';
+import { addList } from './state/actions';
 
 export const theme = {
   colors: {
@@ -14,7 +15,7 @@ export const theme = {
 };
 
 function App() {
-  const { lists } = useAppState();
+  const { lists, dispatch } = useAppState();
 
   return (
     <>
@@ -27,7 +28,7 @@ function App() {
           <AddNewItem
             buttonTitle="+ Add new card"
             newCard={true}
-            onAdd={(text) => console.log('hello')}
+            onAdd={(text) => dispatch(addList(text))}
           />
         </AppContainer>
       </ThemeProvider>
