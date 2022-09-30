@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import { moveItem } from '../utils/dragItem';
 import { findIndexById } from '../utils/findIndexById';
 import { Action } from './actions';
 
@@ -26,7 +27,7 @@ export const appStateReducer = (state: AppState, action: Action): AppState => {
           ...state.lists,
           {
             id: nanoid(),
-            cardTitle: action.payload as string,
+            cardTitle: action.payload,
             tasks: [],
           },
         ],
@@ -51,6 +52,17 @@ export const appStateReducer = (state: AppState, action: Action): AppState => {
               : list.tasks,
         };
       });
+
+      return {
+        ...state,
+        lists: updatedList,
+      };
+    }
+    case 'MOVE_LIST': {
+      const { draggedId, hoveredId } = action.payload;
+      const dragIndex = findIndexById(draggedId, state.lists);
+      const hoverIndex = findIndexById(hoveredId, state.lists);
+      const updatedList = moveItem(dragIndex, hoverIndex, state.lists);
 
       return {
         ...state,
