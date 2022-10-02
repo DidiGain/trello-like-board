@@ -11,7 +11,7 @@ export const CustomDragLayer = () => {
 
   return draggedItem && currentOffset ? (
     <CustomDragLayerContainer>
-      <Card id={draggedItem.id} title={draggedItem.title} />
+      <Card id={draggedItem.id} title={draggedItem.title} isPreview />
     </CustomDragLayerContainer>
   ) : null;
 };

@@ -6,10 +6,12 @@ type AddItemButtonProps = {
 
 interface DraggedContainerProps {
   isHidden?: boolean;
+  isPreview?: boolean;
 }
 
 export const DraggedContainer = styled.div<DraggedContainerProps>`
   opacity: ${(p) => (p.isHidden ? 0.4 : 1)};
+  transform: ${(p) => (p.isPreview ? 'rotate(5deg)' : undefined)};
 `;
 
 export const AppContainer = styled.div`

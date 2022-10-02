@@ -5,6 +5,7 @@ import GlobalStyles from './shared/theme';
 import { AddNewItem } from './components/AddNewItem';
 import { useAppState } from './state/AppStateContext';
 import { addList } from './state/actions';
+import { CustomDragLayer } from './components/CustomDragLayer';
 
 export const theme = {
   colors: {
@@ -22,6 +23,7 @@ function App() {
       <GlobalStyles />
       <ThemeProvider theme={theme}>
         <AppContainer>
+          <CustomDragLayer />
           {lists.map((list) => (
             <Card key={list.id} id={list.id} title={list.cardTitle}></Card>
           ))}

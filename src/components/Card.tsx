@@ -12,9 +12,10 @@ import { Row } from './Row';
 type CardProps = {
   id: string;
   title: string;
+  isPreview?: boolean;
 };
 
-export const Card = ({ id, title }: CardProps) => {
+export const Card = ({ id, title, isPreview }: CardProps) => {
   const { getTasksByListId, draggedItem, dispatch } = useAppState();
   const tasks = getTasksByListId(id);
   const ref = useRef<HTMLDivElement>(null);
@@ -35,7 +36,11 @@ export const Card = ({ id, title }: CardProps) => {
   drag(drop(ref));
 
   return (
-    <CardContainer ref={ref} isHidden={isHidden(draggedItem, 'CARD', id)}>
+    <CardContainer
+      ref={ref}
+      isHidden={isHidden(draggedItem, 'CARD', id, isPreview)}
+      isPreview={isPreview}
+    >
       <CardTitle>{title}</CardTitle>
       {tasks.map((task) => (
         <Row key={task.id} id={task.id} title={task.taskTitle}></Row>
