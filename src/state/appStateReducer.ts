@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import { DragItem } from '../components/DragItem';
 import { moveItem } from '../utils/dragItem';
 import { findIndexById } from '../utils/findIndexById';
 import { Action } from './actions';
@@ -16,6 +17,7 @@ export type List = {
 
 export type AppState = {
   lists: List[];
+  draggedItem: DragItem | null;
 };
 
 export const appStateReducer = (state: AppState, action: Action): AppState => {
@@ -67,6 +69,12 @@ export const appStateReducer = (state: AppState, action: Action): AppState => {
       return {
         ...state,
         lists: updatedList,
+      };
+    }
+    case 'SET_DRAGGED_ITEM': {
+      return {
+        ...state,
+        draggedItem: action.payload,
       };
     }
     default:

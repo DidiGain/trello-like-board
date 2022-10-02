@@ -6,25 +6,10 @@ import {
   useContext,
   useReducer,
 } from 'react';
+import { DragItem } from '../components/DragItem';
 import { Action } from './actions';
-import { appStateReducer } from './appStateReducer';
+import { AppState, appStateReducer, List, Task } from './appStateReducer';
 
-export type Task = {
-  id: string;
-  taskTitle: string;
-};
-
-export type List = {
-  id: string;
-  cardTitle: string;
-  tasks: Task[];
-};
-
-export type AppState = {
-  lists: List[];
-};
-
-// const appData: AppState = { lists: [] };
 const appData: AppState = {
   lists: [
     {
@@ -46,10 +31,12 @@ const appData: AppState = {
       tasks: [{ id: 'c20', taskTitle: 'Read the current book for 20min' }],
     },
   ],
+  draggedItem: null,
 };
 
 type AppStateContextProps = {
   lists: List[];
+  draggedItem: DragItem | null;
   getTasksByListId(id: string): Task[];
   dispatch: Dispatch<Action>;
 };
@@ -64,14 +51,16 @@ const AppStateContext = createContext<AppStateContextProps>(
 
 export const AppStateProvider: FC<AppContextProps> = ({ children }) => {
   const [state, dispatch] = useReducer(appStateReducer, appData);
-  const { lists } = state;
+  const { lists, draggedItem } = state;
 
   const getTasksByListId = (id: string) => {
     return lists.find((list: List) => list.id === id)?.tasks || [];
   };
 
   return (
-    <AppStateContext.Provider value={{ lists, getTasksByListId, dispatch }}>
+    <AppStateContext.Provider
+      value={{ lists, getTasksByListId, dispatch, draggedItem }}
+    >
       {children}
     </AppStateContext.Provider>
   );
