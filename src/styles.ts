@@ -4,6 +4,14 @@ type AddItemButtonProps = {
   newCard?: boolean;
 };
 
+interface DraggedContainerProps {
+  isHidden?: boolean;
+}
+
+export const DraggedContainer = styled.div<DraggedContainerProps>`
+  opacity: ${(p) => (p.isHidden ? 0.4 : 1)};
+`;
+
 export const AppContainer = styled.div`
   display: flex;
   align-items: flex-start;
@@ -13,7 +21,7 @@ export const AppContainer = styled.div`
   background-color: ${(p) => p.theme.colors.appContainer};
 `;
 
-export const CardContainer = styled.div`
+export const CardContainer = styled(DraggedContainer)`
   width: 250px;
   min-height: 40px;
   margin-right: 20px;
@@ -22,7 +30,7 @@ export const CardContainer = styled.div`
   background-color: ${(p) => p.theme.colors.cardContainer};
 `;
 
-export const RowContainer = styled.div`
+export const RowContainer = styled(DraggedContainer)`
   max-width: 250px;
   margin-bottom: 0.5rem;
   padding: 0.5rem 1rem;
@@ -80,4 +88,14 @@ export const NewItemInput = styled.input`
   border: none;
   border-radius: 4px;
   box-shadow: #091e4240 0px 1px 0px 0px;
+`;
+
+export const CustomDragLayerContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
 `;
