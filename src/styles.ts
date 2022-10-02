@@ -9,6 +9,13 @@ interface DraggedContainerProps {
   isPreview?: boolean;
 }
 
+type DragPreviewWrapperProps = {
+  position: {
+    x: number;
+    y: number;
+  };
+};
+
 export const DraggedContainer = styled.div<DraggedContainerProps>`
   opacity: ${(p) => (p.isHidden ? 0.4 : 1)};
   transform: ${(p) => (p.isPreview ? 'rotate(5deg)' : undefined)};
@@ -101,3 +108,11 @@ export const CustomDragLayerContainer = styled.div`
   z-index: 10;
   pointer-events: none;
 `;
+
+export const DragPreviewWrapper = styled.div.attrs<DragPreviewWrapperProps>(
+  ({ position: { x, y } }) => ({
+    style: {
+      transform: `translate(${x}px, ${y}px)`,
+    },
+  })
+)<DragPreviewWrapperProps>``;
