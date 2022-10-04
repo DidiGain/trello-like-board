@@ -30,8 +30,10 @@ export type Action =
       payload: DragItem | null;
     }
   | {
-      type: 'DELETE_CARD';
+      type: 'DELETE_ITEM';
       payload: {
+        itemId: string;
+        itemType: string;
         cardId: string;
       };
     };
@@ -66,7 +68,11 @@ export const setDraggedItem = (draggedItem: DragItem | null): Action => ({
   payload: draggedItem,
 });
 
-export const deleteCard = (cardId: string): Action => ({
-  type: 'DELETE_CARD',
-  payload: { cardId },
+export const deleteItem = (
+  itemId: string,
+  itemType: string,
+  cardId: string
+): Action => ({
+  type: 'DELETE_ITEM',
+  payload: { itemId, itemType, cardId },
 });

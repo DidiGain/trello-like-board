@@ -1,16 +1,11 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import { throttle } from 'throttle-debounce-ts';
-import {
-  addTask,
-  deleteCard,
-  moveList,
-  moveTask,
-  setDraggedItem,
-} from '../state/actions';
+import { addTask, moveList, moveTask, setDraggedItem } from '../state/actions';
 import { useAppState } from '../state/AppStateContext';
-import { CardContainer, CardDelete, CardTitle } from '../styles';
+import { CardContainer, ItemDelete, CardTitle } from '../styles';
 import { isHidden } from '../utils/isHidden';
+import { useItemDelete } from '../utils/useItemDelete';
 import { useItemDrag } from '../utils/useItemDrag';
 import { AddNewItem } from './AddNewItem';
 import { Row } from './Row';
@@ -22,7 +17,7 @@ type CardProps = {
 };
 
 export const Card = ({ id, title, isPreview }: CardProps) => {
-  const [showBtn, setShowBtn] = useState(false);
+  const { showBtn, onItemHover, onItemLeave, onItemDelete } = useItemDelete();
   const { getTasksByListId, draggedItem, dispatch } = useAppState();
   const tasks = getTasksByListId(id);
   const ref = useRef<HTMLDivElement>(null);
@@ -47,31 +42,20 @@ export const Card = ({ id, title, isPreview }: CardProps) => {
 
   drag(drop(ref));
 
-  const onCardHover = () => {
-    setShowBtn(true);
-  };
-
-  const onCardLeave = () => {
-    setShowBtn(false);
-  };
-
-  const onCardDelete = () => {
-    dispatch(deleteCard(id));
-  };
-
   return (
     <CardContainer
       ref={ref}
       isHidden={isHidden(draggedItem, 'CARD', id, isPreview)}
       isPreview={isPreview}
     >
-      <CardDelete
+      <ItemDelete
         isHovered={showBtn}
-        onMouseEnter={onCardHover}
-        onMouseLeave={onCardLeave}
-        onMouseDown={onCardDelete}
+        isSmall={false}
+        onMouseEnter={onItemHover}
+        onMouseLeave={onItemLeave}
+        onMouseDown={() => onItemDelete(id, 'CARD', '')}
       />
-      <CardTitle onMouseEnter={onCardHover} onMouseLeave={onCardLeave}>
+      <CardTitle onMouseEnter={onItemHover} onMouseLeave={onItemLeave}>
         {title}
       </CardTitle>
       {tasks.map((task) => (

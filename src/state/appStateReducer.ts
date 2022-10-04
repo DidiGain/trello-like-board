@@ -119,11 +119,20 @@ export const appStateReducer = (
       break;
     }
 
-    case 'DELETE_CARD': {
-      const { cardId } = action.payload;
-      const deleteIndex = findIndexById(cardId, draft.lists);
+    case 'DELETE_ITEM': {
+      const { itemId, itemType, cardId } = action.payload;
 
-      draft.lists.splice(deleteIndex, 1);
+      if (itemType === 'CARD') {
+        const cardToDelete = findIndexById(itemId, draft.lists);
+        draft.lists.splice(cardToDelete, 1);
+      }
+      if (itemType === 'ROW') {
+        const cardIndex = findIndexById(cardId, draft.lists);
+        const cardArr = draft.lists[cardIndex].tasks;
+        const taskToDelete = findIndexById(itemId, cardArr);
+        draft.lists[cardIndex].tasks.splice(taskToDelete, 1);
+      }
+
       break;
     }
     default:

@@ -17,7 +17,8 @@ type DragPreviewWrapperProps = {
 };
 
 interface DeleteButton {
-  isHovered?: boolean;
+  isHovered: boolean;
+  isSmall?: boolean;
 }
 
 export const DraggedContainer = styled.div<DraggedContainerProps>`
@@ -45,29 +46,31 @@ export const CardContainer = styled(DraggedContainer)`
   background-color: ${(p) => p.theme.colors.cardContainer};
 `;
 
-export const CardDelete = styled.button<DeleteButton>`
+export const ItemDelete = styled.button<DeleteButton>`
   position: absolute;
-  top: -10px;
-  right: -5px;
-  width: 30px;
-  height: 30px;
+  top: ${(p) => (p.isSmall ? '-4px' : '-10px')};
+  right: ${(p) => (p.isSmall ? '-1px' : '-4px')};
+  width: ${(p) => (p.isSmall ? '20px' : '30px')};
+  height: ${(p) => (p.isSmall ? '18px' : '30px')};
 
-  color: black;
-  background-color: transparent;
-  border: solid 2px darkred;
+  background-color: ${(p) => p.theme.colors.appContainer};
+  background-color: orange;
+  border: ${(p) => (p.isSmall ? 'none' : 'solid 2px grey')};
+  border-radius: ${(p) => (p.isSmall ? '50%' : '0')};
   opacity: ${(p) => (p.isHovered ? 1 : 0)};
+  /* opacity: 1; */
 
   &::before,
   &::after {
     position: absolute;
     content: '';
-    top: 3px;
-    right: 13px;
-    transform: translate(-50%, 0);
+    top: ${(p) => (p.isSmall ? '3px' : '3px')};
+    right: ${(p) => (p.isSmall ? '9px' : '13px')};
     width: 2px;
-    height: 20px;
-    background-color: darkred;
+    height: ${(p) => (p.isSmall ? '12px' : '20px')};
+    background-color: grey;
     opacity: ${(p) => (p.isHovered ? 1 : 0)};
+    /* opacity: 1; */
   }
 
   &::before {
@@ -80,6 +83,7 @@ export const CardDelete = styled.button<DeleteButton>`
 `;
 
 export const RowContainer = styled(DraggedContainer)`
+  position: relative;
   max-width: 250px;
   margin-bottom: 0.5rem;
   padding: 0.5rem 1rem;
@@ -91,9 +95,13 @@ export const RowContainer = styled(DraggedContainer)`
 `;
 
 export const CardTitle = styled.div`
-  padding: 10px 16px 12px;
+  padding: 10px 16px 16px;
   font-weight: bold;
   text-transform: capitalize;
+`;
+
+export const RowTitle = styled.p`
+  padding: 5px;
 `;
 
 export const AddItemButton = styled.button<AddItemButtonProps>`

@@ -1,11 +1,12 @@
 import { useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import { useAppState } from '../state/AppStateContext';
-import { RowContainer } from '../styles';
+import { ItemDelete, RowContainer, RowTitle } from '../styles';
 import { useItemDrag } from '../utils/useItemDrag';
 import { throttle } from 'throttle-debounce-ts';
 import { moveTask, setDraggedItem } from '../state/actions';
 import { isHidden } from '../utils/isHidden';
+import { useItemDelete } from '../utils/useItemDelete';
 
 type RowProps = {
   id: string;
@@ -15,6 +16,7 @@ type RowProps = {
 };
 
 export const Row = ({ id, title, cardId, isPreview }: RowProps) => {
+  const { showBtn, onItemHover, onItemLeave, onItemDelete } = useItemDelete();
   const { draggedItem, dispatch } = useAppState();
   const ref = useRef<HTMLDivElement>(null);
   const { drag } = useItemDrag({
@@ -45,7 +47,17 @@ export const Row = ({ id, title, cardId, isPreview }: RowProps) => {
       isHidden={isHidden(draggedItem, 'ROW', id, isPreview)}
       isPreview={isPreview}
     >
-      {title}
+      <ItemDelete
+        isHovered={showBtn}
+        isSmall={true}
+        onMouseEnter={onItemHover}
+        onMouseLeave={onItemLeave}
+        onMouseDown={() => onItemDelete(id, 'ROW', cardId)}
+      />
+      <RowTitle>
+        {/* <RowTitle onMouseEnter={onItemHover} onMouseLeave={onItemLeave}> */}
+        {title}
+      </RowTitle>
     </RowContainer>
   );
 };
