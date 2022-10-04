@@ -17,6 +17,15 @@ export type Action =
       };
     }
   | {
+      type: 'MOVE_TASK';
+      payload: {
+        draggedRowId: string;
+        hoveredRowId: string | null;
+        sourceCardId: string;
+        hoveredCardId: string;
+      };
+    }
+  | {
       type: 'SET_DRAGGED_ITEM';
       payload: DragItem | null;
     };
@@ -34,6 +43,16 @@ export const addTask = (taskTitle: string, listId: string): Action => ({
 export const moveList = (draggedId: string, hoveredId: string): Action => ({
   type: 'MOVE_LIST',
   payload: { draggedId, hoveredId },
+});
+
+export const moveTask = (
+  draggedRowId: string,
+  hoveredRowId: string | null,
+  sourceCardId: string,
+  hoveredCardId: string
+): Action => ({
+  type: 'MOVE_TASK',
+  payload: { draggedRowId, hoveredRowId, sourceCardId, hoveredCardId },
 });
 
 export const setDraggedItem = (draggedItem: DragItem | null): Action => ({

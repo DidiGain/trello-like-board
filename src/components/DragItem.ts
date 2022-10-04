@@ -6,6 +6,7 @@ export type CardDragItem = {
 
 export type RowDragItem = {
   id: string;
+  cardId: string;
   title: string;
   type: 'ROW';
 };

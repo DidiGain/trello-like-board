@@ -20,64 +20,105 @@ export type AppState = {
   draggedItem: DragItem | null;
 };
 
-export const appStateReducer = (state: AppState, action: Action): AppState => {
+export const appStateReducer = (
+  draft: AppState,
+  action: Action
+): AppState | void => {
   switch (action.type) {
     case 'ADD_LIST': {
-      return {
-        ...state,
-        lists: [
-          ...state.lists,
-          {
-            id: nanoid(),
-            cardTitle: action.payload,
-            tasks: [],
-          },
-        ],
-      };
+      // return {
+      //   ...draft,
+      //   lists: [
+      //     ...draft.lists,
+      //     {
+      //       id: nanoid(),
+      //       cardTitle: action.payload,
+      //       tasks: [],
+      //     },
+      //   ],
+      // };
+
+      draft.lists.push({
+        id: nanoid(),
+        cardTitle: action.payload,
+        tasks: [],
+      });
+      break;
     }
     case 'ADD_TASK': {
       const { taskTitle, listId } = action.payload;
-      const targetListIndex = findIndexById(listId, state.lists);
+      const targetListIndex = findIndexById(listId, draft.lists);
 
-      const updatedList = state.lists.map((list, i) => {
-        return {
-          ...list,
-          tasks:
-            i === targetListIndex
-              ? [
-                  ...list.tasks,
-                  {
-                    id: nanoid(),
-                    taskTitle,
-                  },
-                ]
-              : list.tasks,
-        };
+      // const updatedList = draft.lists.map((list, i) => {
+      //   return {
+      //     ...list,
+      //     tasks:
+      //       i === targetListIndex
+      //         ? [
+      //             ...list.tasks,
+      //             {
+      //               id: nanoid(),
+      //               taskTitle,
+      //             },
+      //           ]
+      //         : list.tasks,
+      //   };
+      // });
+
+      // return {
+      //   ...draft,
+      //   lists: updatedList,
+      // };
+
+      draft.lists[targetListIndex].tasks.push({
+        id: nanoid(),
+        taskTitle,
       });
-
-      return {
-        ...state,
-        lists: updatedList,
-      };
+      break;
     }
     case 'MOVE_LIST': {
       const { draggedId, hoveredId } = action.payload;
-      const dragIndex = findIndexById(draggedId, state.lists);
-      const hoverIndex = findIndexById(hoveredId, state.lists);
-      const updatedList = moveItem(dragIndex, hoverIndex, state.lists);
+      const dragIndex = findIndexById(draggedId, draft.lists);
+      const hoverIndex = findIndexById(hoveredId, draft.lists);
+      const updatedList = moveItem(dragIndex, hoverIndex, draft.lists);
+      // draft.lists = moveItem(dragIndex, hoverIndex, draft.lists)
+      // break
 
       return {
-        ...state,
+        ...draft,
         lists: updatedList,
       };
     }
     case 'SET_DRAGGED_ITEM': {
+      // draft.draggedItem = action.payload
+      // break
       return {
-        ...state,
+        ...draft,
         draggedItem: action.payload,
       };
     }
+    case 'MOVE_TASK': {
+      const { draggedRowId, hoveredRowId, sourceCardId, hoveredCardId } =
+        action.payload;
+
+      const sourceCardIndex = findIndexById(sourceCardId, draft.lists);
+      const hoveredCardIndex = findIndexById(hoveredCardId, draft.lists);
+
+      const draggedRowIndex = findIndexById(
+        draggedRowId,
+        draft.lists[sourceCardIndex].tasks
+      );
+      const hoveredRowIndex = hoveredRowId
+        ? findIndexById(hoveredRowId, draft.lists[hoveredCardIndex].tasks)
+        : 0;
+
+      const item = draft.lists[sourceCardIndex].tasks[draggedRowIndex];
+
+      draft.lists[sourceCardIndex].tasks.splice(draggedRowIndex, 1);
+      draft.lists[hoveredCardIndex].tasks.splice(hoveredRowIndex, 0, item);
+      break;
+    }
     default:
-      return state;
+      return draft;
   }
 };

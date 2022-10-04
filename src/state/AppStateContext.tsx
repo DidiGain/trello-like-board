@@ -1,11 +1,6 @@
-import {
-  createContext,
-  Dispatch,
-  FC,
-  ReactNode,
-  useContext,
-  useReducer,
-} from 'react';
+import { nanoid } from 'nanoid';
+import { useImmerReducer } from 'use-immer';
+import { createContext, Dispatch, FC, ReactNode, useContext } from 'react';
 import { DragItem } from '../components/DragItem';
 import { Action } from './actions';
 import { AppState, appStateReducer, List, Task } from './appStateReducer';
@@ -13,22 +8,31 @@ import { AppState, appStateReducer, List, Task } from './appStateReducer';
 const appData: AppState = {
   lists: [
     {
-      id: '0',
+      id: nanoid(),
       cardTitle: 'To Do',
       tasks: [
-        { id: 'c00', taskTitle: 'Continue the trello app' },
-        { id: 'c01', taskTitle: 'Review the function qs' },
+        { id: nanoid(), taskTitle: 'Continue the trello app - card 1/1' },
+        { id: nanoid(), taskTitle: 'Review the function q-s - card 1/2' },
       ],
     },
     {
-      id: '1',
+      id: nanoid(),
       cardTitle: 'In Progress',
-      tasks: [{ id: 'c10', taskTitle: 'Follow the Next.js course' }],
+      tasks: [
+        { id: nanoid(), taskTitle: 'Follow the Next.js course - card 2/1' },
+        { id: nanoid(), taskTitle: 'Follow the TS course - card 2/2' },
+      ],
     },
     {
-      id: '2',
+      id: nanoid(),
       cardTitle: 'Done',
-      tasks: [{ id: 'c20', taskTitle: 'Read the current book for 20min' }],
+      tasks: [
+        {
+          id: nanoid(),
+          taskTitle: 'Read the current book for 20min - card 3/1',
+        },
+        { id: nanoid(), taskTitle: 'SQL course - card 3/2' },
+      ],
     },
   ],
   draggedItem: null,
@@ -50,7 +54,7 @@ const AppStateContext = createContext<AppStateContextProps>(
 );
 
 export const AppStateProvider: FC<AppContextProps> = ({ children }) => {
-  const [state, dispatch] = useReducer(appStateReducer, appData);
+  const [state, dispatch] = useImmerReducer(appStateReducer, appData);
   const { lists, draggedItem } = state;
 
   const getTasksByListId = (id: string) => {

@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import { throttle } from 'throttle-debounce-ts';
-import { addTask, moveList } from '../state/actions';
+import { addTask, moveList, moveTask, setDraggedItem } from '../state/actions';
 import { useAppState } from '../state/AppStateContext';
 import { CardContainer, CardTitle } from '../styles';
 import { isHidden } from '../utils/isHidden';
@@ -23,12 +23,17 @@ export const Card = ({ id, title, isPreview }: CardProps) => {
   const { drag } = useItemDrag({ type: 'CARD', id, title });
 
   const [, drop] = useDrop({
-    accept: 'CARD',
+    accept: ['CARD', 'ROW'],
     hover: throttle(200, () => {
       if (!draggedItem) return;
       if (draggedItem.type === 'CARD') {
         if (draggedItem.id === id) return;
         dispatch(moveList(draggedItem.id, id));
+      } else {
+        if (draggedItem.cardId === id) return;
+        if (tasks.length) return;
+        dispatch(moveTask(draggedItem.id, null, draggedItem.cardId, id));
+        dispatch(setDraggedItem({ ...draggedItem, cardId: id }));
       }
     }),
   });
@@ -43,7 +48,7 @@ export const Card = ({ id, title, isPreview }: CardProps) => {
     >
       <CardTitle>{title}</CardTitle>
       {tasks.map((task) => (
-        <Row key={task.id} id={task.id} title={task.taskTitle}></Row>
+        <Row key={task.id} id={task.id} title={task.taskTitle} cardId={id} />
       ))}
       <AddNewItem
         buttonTitle="+ Add new task"
