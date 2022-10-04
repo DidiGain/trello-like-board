@@ -16,6 +16,10 @@ type DragPreviewWrapperProps = {
   };
 };
 
+interface DeleteButton {
+  isHovered?: boolean;
+}
+
 export const DraggedContainer = styled.div<DraggedContainerProps>`
   opacity: ${(p) => (p.isHidden ? 0 : 1)};
   transform: ${(p) => (p.isPreview ? 'rotate(5deg)' : undefined)};
@@ -31,12 +35,48 @@ export const AppContainer = styled.div`
 `;
 
 export const CardContainer = styled(DraggedContainer)`
+  position: relative;
   width: 250px;
   min-height: 40px;
   margin-right: 20px;
-  padding: 8px 8px;
+  padding: 0px 8px;
+  padding-bottom: 10px;
   border-radius: 4px;
   background-color: ${(p) => p.theme.colors.cardContainer};
+`;
+
+export const CardDelete = styled.button<DeleteButton>`
+  position: absolute;
+  top: -10px;
+  right: -5px;
+  width: 30px;
+  height: 30px;
+
+  color: black;
+  background-color: transparent;
+  border: solid 2px darkred;
+  opacity: ${(p) => (p.isHovered ? 1 : 0)};
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: '';
+    top: 3px;
+    right: 13px;
+    transform: translate(-50%, 0);
+    width: 2px;
+    height: 20px;
+    background-color: darkred;
+    opacity: ${(p) => (p.isHovered ? 1 : 0)};
+  }
+
+  &::before {
+    transform: rotate(-45deg);
+  }
+
+  &::after {
+    transform: rotate(45deg);
+  }
 `;
 
 export const RowContainer = styled(DraggedContainer)`
@@ -51,7 +91,7 @@ export const RowContainer = styled(DraggedContainer)`
 `;
 
 export const CardTitle = styled.div`
-  padding: 6px 16px 12px;
+  padding: 10px 16px 12px;
   font-weight: bold;
   text-transform: capitalize;
 `;

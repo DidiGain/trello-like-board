@@ -28,6 +28,12 @@ export type Action =
   | {
       type: 'SET_DRAGGED_ITEM';
       payload: DragItem | null;
+    }
+  | {
+      type: 'DELETE_CARD';
+      payload: {
+        cardId: string;
+      };
     };
 
 export const addList = (cardTitle: string): Action => ({
@@ -58,4 +64,9 @@ export const moveTask = (
 export const setDraggedItem = (draggedItem: DragItem | null): Action => ({
   type: 'SET_DRAGGED_ITEM',
   payload: draggedItem,
+});
+
+export const deleteCard = (cardId: string): Action => ({
+  type: 'DELETE_CARD',
+  payload: { cardId },
 });

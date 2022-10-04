@@ -118,6 +118,14 @@ export const appStateReducer = (
       draft.lists[hoveredCardIndex].tasks.splice(hoveredRowIndex, 0, item);
       break;
     }
+
+    case 'DELETE_CARD': {
+      const { cardId } = action.payload;
+      const deleteIndex = findIndexById(cardId, draft.lists);
+
+      draft.lists.splice(deleteIndex, 1);
+      break;
+    }
     default:
       return draft;
   }

@@ -1,9 +1,15 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { throttle } from 'throttle-debounce-ts';
-import { addTask, moveList, moveTask, setDraggedItem } from '../state/actions';
+import {
+  addTask,
+  deleteCard,
+  moveList,
+  moveTask,
+  setDraggedItem,
+} from '../state/actions';
 import { useAppState } from '../state/AppStateContext';
-import { CardContainer, CardTitle } from '../styles';
+import { CardContainer, CardDelete, CardTitle } from '../styles';
 import { isHidden } from '../utils/isHidden';
 import { useItemDrag } from '../utils/useItemDrag';
 import { AddNewItem } from './AddNewItem';
@@ -16,6 +22,7 @@ type CardProps = {
 };
 
 export const Card = ({ id, title, isPreview }: CardProps) => {
+  const [showBtn, setShowBtn] = useState(false);
   const { getTasksByListId, draggedItem, dispatch } = useAppState();
   const tasks = getTasksByListId(id);
   const ref = useRef<HTMLDivElement>(null);
@@ -40,13 +47,33 @@ export const Card = ({ id, title, isPreview }: CardProps) => {
 
   drag(drop(ref));
 
+  const onCardHover = () => {
+    setShowBtn(true);
+  };
+
+  const onCardLeave = () => {
+    setShowBtn(false);
+  };
+
+  const onCardDelete = () => {
+    dispatch(deleteCard(id));
+  };
+
   return (
     <CardContainer
       ref={ref}
       isHidden={isHidden(draggedItem, 'CARD', id, isPreview)}
       isPreview={isPreview}
     >
-      <CardTitle>{title}</CardTitle>
+      <CardDelete
+        isHovered={showBtn}
+        onMouseEnter={onCardHover}
+        onMouseLeave={onCardLeave}
+        onMouseDown={onCardDelete}
+      />
+      <CardTitle onMouseEnter={onCardHover} onMouseLeave={onCardLeave}>
+        {title}
+      </CardTitle>
       {tasks.map((task) => (
         <Row key={task.id} id={task.id} title={task.taskTitle} cardId={id} />
       ))}
