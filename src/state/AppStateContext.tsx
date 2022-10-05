@@ -11,16 +11,16 @@ const appData: AppState = {
       id: nanoid(),
       cardTitle: 'To Do',
       tasks: [
-        { id: nanoid(), taskTitle: 'Continue the trello app - card 1/1' },
-        { id: nanoid(), taskTitle: 'Review the function q-s - card 1/2' },
+        { id: nanoid(), taskTitle: 'Quizlet - repeat 50 cards' },
+        { id: nanoid(), taskTitle: 'Review the q-s in Pages' },
       ],
     },
     {
       id: nanoid(),
       cardTitle: 'In Progress',
       tasks: [
-        { id: nanoid(), taskTitle: 'Follow the Next.js course - card 2/1' },
-        { id: nanoid(), taskTitle: 'Follow the TS course - card 2/2' },
+        { id: nanoid(), taskTitle: 'Continue the MVP' },
+        { id: nanoid(), taskTitle: 'TS advanced - course' },
       ],
     },
     {
@@ -29,9 +29,9 @@ const appData: AppState = {
       tasks: [
         {
           id: nanoid(),
-          taskTitle: 'Read the current book for 20min - card 3/1',
+          taskTitle: 'Read the current book in english',
         },
-        { id: nanoid(), taskTitle: 'SQL course - card 3/2' },
+        { id: nanoid(), taskTitle: 'SQL course' },
       ],
     },
   ],
