@@ -6,11 +6,13 @@ import { AddNewItem } from './components/AddNewItem';
 import { useAppState } from './state/AppStateContext';
 import { addList } from './state/actions';
 import { CustomDragLayer } from './components/CustomDragLayer';
+import { Header } from './components/Header';
 
 export const theme = {
   colors: {
-    appContainer: 'rgb(171,204,186)',
-    cardContainer: 'rgb(234,214,166)',
+    headerContainer: 'rgb(188,141,162)',
+    appContainer: 'rgb(141,162,188)',
+    cardContainer: 'rgb(223,216,210)',
     addItem: 'rgba(140,128,99, .9)',
   },
 };
@@ -22,6 +24,7 @@ function App() {
     <>
       <GlobalStyles />
       <ThemeProvider theme={theme}>
+        <Header />
         <AppContainer>
           <CustomDragLayer />
           {lists.map((list) => (

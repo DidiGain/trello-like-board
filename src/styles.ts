@@ -31,7 +31,7 @@ export const AppContainer = styled.div`
   align-items: flex-start;
   width: 100%;
   height: 100vh;
-  padding: 15px;
+  padding: 25px;
   background-color: ${(p) => p.theme.colors.appContainer};
 `;
 
@@ -48,14 +48,13 @@ export const CardContainer = styled(DraggedContainer)`
 
 export const ItemDelete = styled.button<DeleteButton>`
   position: absolute;
-  top: ${(p) => (p.isSmall ? '-4px' : '-10px')};
-  right: ${(p) => (p.isSmall ? '-1px' : '-4px')};
-  width: ${(p) => (p.isSmall ? '20px' : '30px')};
-  height: ${(p) => (p.isSmall ? '18px' : '30px')};
+  top: ${(p) => (p.isSmall ? '-6px' : '-10px')};
+  right: ${(p) => (p.isSmall ? '-3px' : '-6px')};
+  width: ${(p) => (p.isSmall ? '20px' : '25px')};
+  height: ${(p) => (p.isSmall ? '18px' : '28px')};
 
-  background-color: ${(p) => p.theme.colors.appContainer};
-  background-color: orange;
-  border: ${(p) => (p.isSmall ? 'none' : 'solid 2px grey')};
+  background-color: ${(p) => p.theme.colors.headerContainer};
+  border: none;
   border-radius: ${(p) => (p.isSmall ? '50%' : '0')};
   opacity: ${(p) => (p.isHovered ? 1 : 0)};
   /* opacity: 1; */
@@ -64,11 +63,11 @@ export const ItemDelete = styled.button<DeleteButton>`
   &::after {
     position: absolute;
     content: '';
-    top: ${(p) => (p.isSmall ? '3px' : '3px')};
-    right: ${(p) => (p.isSmall ? '9px' : '13px')};
+    top: ${(p) => (p.isSmall ? '3px' : '4px')};
+    right: ${(p) => (p.isSmall ? '9px' : '11px')};
     width: 2px;
     height: ${(p) => (p.isSmall ? '12px' : '20px')};
-    background-color: grey;
+    background-color: ${(p) => p.theme.colors.cardContainer};
     opacity: ${(p) => (p.isHovered ? 1 : 0)};
     /* opacity: 1; */
   }
@@ -164,3 +163,12 @@ export const DragPreviewWrapper = styled.div.attrs<DragPreviewWrapperProps>(
     },
   })
 )<DragPreviewWrapperProps>``;
+
+export const HeaderContainer = styled.div`
+  padding: 20px;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-align: center;
+  background-color: ${(p) => p.theme.colors.headerContainer};
+`;
