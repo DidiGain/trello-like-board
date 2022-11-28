@@ -97,10 +97,12 @@ export const CardTitle = styled.div`
   padding: 10px 16px 16px;
   font-weight: bold;
   text-transform: capitalize;
+  color: ${(p) => p.theme.colors.cardHeaderFontColor};
 `;
 
 export const RowTitle = styled.p`
   padding: 5px;
+  color: ${(p) => p.theme.colors.newTaskFontColor};
 `;
 
 export const AddItemButton = styled.button<AddItemButtonProps>`
@@ -111,7 +113,7 @@ export const AddItemButton = styled.button<AddItemButtonProps>`
   border-radius: 4px;
   text-align: left;
   background-color: #ffffff3d;
-  color: ${(p) => (p.newCard ? '#000c' : p.theme.colors.addItem)};
+  color: ${(p) => (p.newCard ? '#000c' : p.theme.colors.headerFontColor)};
   &:hover {
     background-color: ${(p) =>
       p.newCard ? p.theme.colors.cardContainer : '#eee'};
@@ -170,5 +172,6 @@ export const HeaderContainer = styled.div`
   letter-spacing: 3px;
   text-transform: uppercase;
   text-align: center;
+  color: ${(p) => p.theme.colors.headerFontColor};
   background-color: ${(p) => p.theme.colors.headerContainer};
 `;
