@@ -46,18 +46,15 @@ export const Row = ({ id, title, cardId, isPreview }: RowProps) => {
       ref={ref}
       isHidden={isHidden(draggedItem, 'ROW', id, isPreview)}
       isPreview={isPreview}
+      onMouseEnter={onItemHover}
+      onMouseLeave={onItemLeave}
     >
       <ItemDelete
         isHovered={showBtn}
         isSmall={true}
-        onMouseEnter={onItemHover}
-        onMouseLeave={onItemLeave}
         onMouseDown={() => onItemDelete(id, 'ROW', cardId)}
       />
-      <RowTitle>
-        {/* <RowTitle onMouseEnter={onItemHover} onMouseLeave={onItemLeave}> */}
-        {title}
-      </RowTitle>
+      <RowTitle>{title}</RowTitle>
     </RowContainer>
   );
 };
