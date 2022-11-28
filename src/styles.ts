@@ -27,18 +27,26 @@ export const DraggedContainer = styled.div<DraggedContainerProps>`
 `;
 
 export const AppContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   padding: 25px;
   background-color: ${(p) => p.theme.colors.appContainer};
+`;
+
+export const CardsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 40px;
+  width: 100vw;
+  height: fit-content;
+  padding-bottom: 70px;
 `;
 
 export const CardContainer = styled(DraggedContainer)`
   position: relative;
   width: 250px;
   min-height: 40px;
+  height: fit-content;
   margin-right: 20px;
   padding: 0px 8px;
   padding-bottom: 10px;
@@ -106,8 +114,10 @@ export const RowTitle = styled.p`
 `;
 
 export const AddItemButton = styled.button<AddItemButtonProps>`
-  max-width: 250px;
   width: 100%;
+  max-width: 250px;
+  height: fit-content;
+  margin-right: 20px;
   padding: 10px 12px;
   border: none;
   border-radius: 4px;
@@ -178,6 +188,7 @@ export const DragPreviewWrapper = styled.div.attrs<DragPreviewWrapperProps>(
 )<DragPreviewWrapperProps>``;
 
 export const HeaderContainer = styled.div`
+  width: 100vw;
   padding: 20px;
   font-size: 2rem;
   letter-spacing: 3px;

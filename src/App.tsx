@@ -1,6 +1,6 @@
 import { ThemeProvider } from 'styled-components';
 import { Card } from './components/Card';
-import { AppContainer } from './styles';
+import { AppContainer, CardsWrapper } from './styles';
 import GlobalStyles from './shared/theme';
 import { AddNewItem } from './components/AddNewItem';
 import { useAppState } from './state/AppStateContext';
@@ -31,14 +31,16 @@ function App() {
         <Header />
         <AppContainer>
           <CustomDragLayer />
-          {lists.map((list) => (
-            <Card key={list.id} id={list.id} title={list.cardTitle}></Card>
-          ))}
-          <AddNewItem
-            buttonTitle="+ Add new card"
-            newCard={true}
-            onAdd={(text) => dispatch(addList(text))}
-          />
+          <CardsWrapper>
+            <AddNewItem
+              buttonTitle="+ Add new card"
+              newCard={true}
+              onAdd={(text) => dispatch(addList(text))}
+            />
+            {lists.map((list) => (
+              <Card key={list.id} id={list.id} title={list.cardTitle} />
+            ))}
+          </CardsWrapper>
         </AppContainer>
       </ThemeProvider>
     </>
