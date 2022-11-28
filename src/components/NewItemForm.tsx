@@ -4,9 +4,10 @@ import { useFocus } from '../utils/useFocus';
 
 type NewItemFormProps = {
   onAdd(text: string): void;
+  onMouseLeave: () => void;
 };
 
-export const NewItemForm = ({ onAdd }: NewItemFormProps) => {
+export const NewItemForm = ({ onAdd, onMouseLeave }: NewItemFormProps) => {
   const [text, setText] = useState('');
   const inputRef = useFocus();
 
@@ -15,7 +16,7 @@ export const NewItemForm = ({ onAdd }: NewItemFormProps) => {
   };
 
   return (
-    <NewItemFormContainer>
+    <NewItemFormContainer onMouseLeave={onMouseLeave}>
       <NewItemInput
         ref={inputRef}
         value={text}

@@ -22,6 +22,7 @@ export const AddNewItem = ({
           onAdd(text);
           setShowAddForm(false);
         }}
+        onMouseLeave={() => setShowAddForm(false)}
       />
     );
   }
