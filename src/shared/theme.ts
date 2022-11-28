@@ -1,5 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
+import Nerkone from '../fonts/NerkoneReg.woff2';
+import RobotoReg from '../fonts/RobotoReg.woff2';
+import RobotoBold from '../fonts/RobotoBold.woff2';
+
 const GlobalStyles = createGlobalStyle`
   html,
   body,
@@ -25,6 +29,27 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
     color: inherit;
   }
+
+  @font-face {
+    font-family: "Nerkone";
+    src: local("Nerkone"), url(${Nerkone}) format('woff2');
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "RobotoReg";
+    src: local("RobotoReg"), url(${RobotoReg}) format('woff2');
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "RobotoBold";
+    src: local("RobotoBold"), url(${RobotoBold}) format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+
   `;
 
 export default GlobalStyles;

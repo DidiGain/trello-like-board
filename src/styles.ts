@@ -30,6 +30,7 @@ export const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
   padding: 25px;
+  font-family: 'RobotoReg';
   background-color: ${(p) => p.theme.colors.appContainer};
 `;
 
@@ -39,6 +40,7 @@ export const CardsWrapper = styled.div`
   row-gap: 40px;
   width: 100vw;
   height: fit-content;
+  padding: 25px;
   padding-bottom: 70px;
 `;
 
@@ -103,6 +105,7 @@ export const RowContainer = styled(DraggedContainer)`
 
 export const CardTitle = styled.div`
   padding: 10px 16px 16px;
+  font-family: 'RobotoBold';
   font-weight: bold;
   text-transform: capitalize;
   color: ${(p) => p.theme.colors.cardHeaderFontColor};
@@ -136,6 +139,7 @@ export const NewItemFormContainer = styled.div`
   align-items: flex-start;
   max-width: 250px;
   width: 100%;
+  font-family: 'RobotoReg';
 `;
 
 export const NewItemButton = styled.div`
@@ -166,6 +170,7 @@ export const NewItemInput = styled.input`
   border: none;
   border-radius: 4px;
   box-shadow: #091e4240 0px 1px 0px 0px;
+  font-family: 'RobotoReg';
   outline: none;
 `;
 
@@ -191,6 +196,7 @@ export const HeaderContainer = styled.div`
   width: 100vw;
   padding: 20px;
   font-size: 2rem;
+  font-family: 'NerkOne';
   letter-spacing: 3px;
   text-transform: uppercase;
   text-align: center;
