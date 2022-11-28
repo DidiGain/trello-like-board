@@ -134,9 +134,19 @@ export const NewItemButton = styled.div`
   border-radius: 4px;
   box-shadow: none;
   text-align: center;
-  background-color: #61c87b;
-  color: #fff;
+  background-color: ${(p) => p.theme.colors.headerContainer};
+  color: ${(p) => p.theme.colors.headerFontColor};
+  box-shadow: 1px 1px 8px ${(p) => p.theme.colors.newTaskFontColor};
   cursor: pointer;
+  transition: 0.3s ease-in;
+
+  &:hover {
+    background-color: ${(p) => p.theme.colors.headerContainerLight};
+  }
+
+  &:active {
+    box-shadow: none;
+  }
 `;
 
 export const NewItemInput = styled.input`
@@ -146,6 +156,7 @@ export const NewItemInput = styled.input`
   border: none;
   border-radius: 4px;
   box-shadow: #091e4240 0px 1px 0px 0px;
+  outline: none;
 `;
 
 export const CustomDragLayerContainer = styled.div`

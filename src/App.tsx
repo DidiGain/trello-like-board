@@ -11,12 +11,13 @@ import { Header } from './components/Header';
 export const theme = {
   colors: {
     headerContainer: 'rgb(230,51,122)',
+    headerContainerLight: 'rgb(232,71,135)',
     appContainer: 'rgb(177,203,255)',
     cardContainer: 'rgb(141,162,204)',
     addItem: 'rgba(140,128,99, .9)',
     headerFontColor: '#f7f5f3',
-    cardHeaderFontColor: 'rgb(53,60,76)',
-    newTaskFontColor: 'rgb(88,101,127)',
+    cardHeaderFontColor: 'rgb(35,40,51)',
+    newTaskFontColor: 'rgb(53,60,76)',
   },
 };
 
